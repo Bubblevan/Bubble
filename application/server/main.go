@@ -167,7 +167,6 @@ func main() {
 	})
 
 	r.GET("/profile", func(c *gin.Context) {
-		log.Println("Received request for /profile")
 		loggedInUser, exists := c.Get("currentUser")
 		if !exists {
 			utils.Fail(c, http.StatusUnauthorized, "用户未登录")
@@ -175,7 +174,6 @@ func main() {
 			return
 		}
 		user := loggedInUser.(models.User)
-		log.Printf("User: %+v", user)
 
 		utils.Success(c, user, "获取个人信息成功")
 	})
