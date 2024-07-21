@@ -8,6 +8,11 @@
         <el-table-column label="活动日期" :formatter="formatDate"></el-table-column>
         <el-table-column prop="Price" label="价格"></el-table-column>
         <el-table-column prop="Num" label="票数"></el-table-column>
+        <el-table-column label="操作">
+          <template v-slot="scope">
+            <el-button type="primary" @click="goToBuy(scope.row)">购买</el-button>
+          </template>
+        </el-table-column>
       </el-table>
     </template>
   </Layout>
@@ -45,6 +50,9 @@ export default {
         return format(new Date(cellValue), 'yyyy-MM-dd');
       }
       return '';
+    },
+    goToBuy(ticket) {
+      this.$router.push({ name: 'Buy', params: { id: ticket.id } });
     }
   }
 };

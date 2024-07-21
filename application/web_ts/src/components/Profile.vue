@@ -25,40 +25,54 @@
   import axios from 'axios';
   
   export default {
-    components: {
-      Layout
-    },
-    data() {
-      return {
-        user: {
-          username: '',
-          email: '',
-          fullName: '',
-          roleText: ''
-        }
-      };
-    },
-    created() {
-      this.fetchProfile();
-    },
-    methods: {
-      async fetchProfile() {
-        try {
-          const token = sessionStorage.getItem('token');
-          console.log(token);
-          const response = await axios.get('http://localhost:8080/profile', {
-            headers: {
-              'Authorization': `Bearer ${token}`
-            }
-          });
-          this.user = response.data.data;
-          this.user.roleText = this.user.role ? '亚运主办方' : '游客';
-        } catch (error) {
-          this.$message.error('获取个人信息失败');
-        }
+  components: {
+    Layout
+  },
+  data() {
+    return {
+      user: {
+        username: '',
+        email: '',
+        fullName: '',
+        roleText: ''
       }
+    };
+  },
+  created() {
+    this.fetchProfile();
+  },
+  methods: {
+  async fetchProfile() {
+    try {
+      const token = sessionStorage.getItem('token');
+      if (token) {
+        console.log('Profile Token:', token); // 输出 sessionStorage 中的 token
+      } else {
+        console.log('No token found in sessionStorage');
+      }
+
+      const response = await axios.get('http://localhost:8080/profile', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      console.log('Response:', response.data);
+      if (response.data && response.data.data) {
+        const userData = response.data.data;
+        this.user.username = userData.Username;
+        this.user.email = userData.Email;
+        this.user.fullName = userData.FullName;
+        this.user.roleText = userData.Role ? '亚运主办方' : '游客';
+      } else {
+        this.$message.error('获取个人信息失败: 数据格式不正确');
+      }
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+      this.$message.error('获取个人信息失败');
     }
-  };
+  }
+}
+};
   </script>
   
   <style scoped>

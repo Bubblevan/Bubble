@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"log"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -32,16 +33,25 @@ func GenerateToken(userID uint) (string, error) {
 	return token, err
 }
 
-func ParseToken(token string) (*Claims, error) {
-	tokenClaims, err := jwt.ParseWithClaims(token, &Claims{}, func(token *jwt.Token) (interface{}, error) {
+func ParseToken(tokenString string) (*Claims, error) {
+	log.Printf("Parsing token: %s", tokenString) // 调试信息：开始解析token
+
+	tokenClaims, err := jwt.ParseWithClaims(tokenString, &Claims{}, func(token *jwt.Token) (interface{}, error) {
 		return jwtSecret, nil
 	})
 
+	if err != nil {
+		log.Printf("Error parsing token: %v", err) // 调试信息：解析token时出错
+		return nil, err
+	}
+
 	if tokenClaims != nil {
 		if claims, ok := tokenClaims.Claims.(*Claims); ok && tokenClaims.Valid {
+			log.Printf("Token parsed successfully: %+v", claims) // 调试信息：token解析成功
 			return claims, nil
 		}
 	}
 
+	log.Println("Token is invalid") // 调试信息：token无效
 	return nil, err
 }

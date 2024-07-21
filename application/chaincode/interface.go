@@ -20,6 +20,6 @@ type Order struct {
 }
 
 type QueryResult struct {
-	Key    string `json:"key"`
+	Key    string  `json:"key"`
 	Record *Ticket `json:"record"`
 }

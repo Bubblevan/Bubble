@@ -14,18 +14,10 @@
             <el-menu-item-group title="管理">
               <el-menu-item index="/events">比赛列表</el-menu-item>
               <el-menu-item index="/events/create">创建比赛</el-menu-item>
+              <el-menu-item index="/tickets/create">浏览器？</el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
           <el-sub-menu index="2">
-            <template #title>
-              <el-icon><ticket /></el-icon>门票购买
-            </template>
-            <el-menu-item-group title="购买">
-              <el-menu-item index="/tickets">比赛列表</el-menu-item>
-              <el-menu-item index="/tickets/create">购买门票</el-menu-item>
-            </el-menu-item-group>
-          </el-sub-menu>
-          <el-sub-menu index="3">
             <template #title>
               <el-icon><user /></el-icon>用户管理
             </template>
@@ -34,7 +26,7 @@
               <el-menu-item index="/users/create">创建用户</el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
-          <el-sub-menu index="4">
+          <el-sub-menu index="3">
             <template #title>
               <el-icon><setting /></el-icon>个人中心
             </template>

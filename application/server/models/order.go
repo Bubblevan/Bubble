@@ -1,11 +1,16 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 type Order struct {
 	gorm.Model
-	UserID     uint
-	TicketID   uint
-	Quantity   int
-	TotalPrice float64
+	UserID     uint      `json:"userID"`
+	TicketID   uint      `json:"ticketID"`
+	Quantity   int       `json:"quantity"`
+	TotalPrice float64   `json:"totalPrice"`
+	OrderDate  time.Time `json:"orderDate"`
 }

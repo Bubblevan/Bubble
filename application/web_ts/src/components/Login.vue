@@ -63,7 +63,7 @@
         if (response.data.code === 0) { // 确保检查code
           const token = response.data.data.token;
           sessionStorage.setItem('token', token); // 确保存储token
-          console.log(token, '登录界面的token');
+          console.log(token, 'vue login的token');
           this.router.push('/main');
         } else {
           alert(response.data.msg);
